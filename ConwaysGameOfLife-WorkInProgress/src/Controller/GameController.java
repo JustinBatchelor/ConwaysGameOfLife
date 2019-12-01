@@ -1,6 +1,7 @@
 package Controller;
 
 import Model.GameModel;
+import View.CellConditionsPanel;
 import View.MainView;
 import View.ResizePanel;
 import View.ThreadPanel;
@@ -23,6 +24,7 @@ public class GameController implements ActionListener, MouseMotionListener, Mous
     private boolean gameIsBeingPlayed;
     private ResizePanel resizePanel;
     private ThreadPanel threadPanel;
+    private CellConditionsPanel cellConditionsPanel;
 
 
     public GameController(GameModel model, MainView view) {
@@ -42,7 +44,7 @@ public class GameController implements ActionListener, MouseMotionListener, Mous
         mainView.getMenuBarImpl().addActionListenerForTorus(this);
         mainView.getMenuBarImpl().addActionListenerForThread(this);
 
-                                        // Creating extra windows for later calls;
+        //                       Creating extra windows for later calls;
         // custom view for resizing panel.... you can also resize the panel by expanding the window
         resizePanel = new ResizePanel();
         resizePanel.addActionListenerForEnterButton(new ActionListener() {
@@ -66,7 +68,7 @@ public class GameController implements ActionListener, MouseMotionListener, Mous
             }
         });
 
-        // Custom view for updating threads
+        //                          Custom view for updating threads
         threadPanel = new ThreadPanel();
         threadPanel.addActionListenerForEnterButton(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
@@ -76,6 +78,8 @@ public class GameController implements ActionListener, MouseMotionListener, Mous
                 threadPanel.dispose();
             }
         });
+
+        //                       Custom View For updating cell conditions
 
     }
     public void setGameBeingPlayed(boolean isBeingPlayed) {
@@ -111,50 +115,6 @@ public class GameController implements ActionListener, MouseMotionListener, Mous
         }
 
         if (e.getSource() == mainView.getMenuBarImpl().getCellConditions()) {
-            JFrame cellConditionsFrame = new JFrame();
-            JPanel cellConditionsPanel = new JPanel();
-
-            cellConditionsPanel.setLayout(new FlowLayout());
-            JLabel setSurviveConditions = new JLabel("Enter the conditions for the Cell to survive");
-            JLabel setBirthConditions = new JLabel("Enter the conditions for a new cell to be born");
-            Integer[] ints = {1,2,3,4,5,6,7,8};
-            ListModel options = new DefaultListModel();
-            ((DefaultListModel) options).setSize(8);
-            ((DefaultListModel) options).add(0,1);
-            ((DefaultListModel) options).add(1,2);
-            ((DefaultListModel) options).add(2,3);
-            ((DefaultListModel) options).add(3,4);
-            ((DefaultListModel) options).add(4,5);
-            ((DefaultListModel) options).add(5,6);
-            ((DefaultListModel) options).add(6,7);
-            ((DefaultListModel) options).add(7,8);
-            JList surviveList = new JList(options);
-            JList birthList = new JList(options);
-            JButton done = new JButton("Done");
-            surviveList.addListSelectionListener(new ListSelectionListener() {
-                public void valueChanged(ListSelectionEvent e) {
-                }
-            });
-            birthList.addListSelectionListener(new ListSelectionListener() {
-                public void valueChanged(ListSelectionEvent e) {
-                }
-            });
-            done.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-
-                }
-            });
-            surviveList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
-            birthList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
-            cellConditionsPanel.add(setSurviveConditions);
-            cellConditionsPanel.add(surviveList);
-            cellConditionsPanel.add(setBirthConditions);
-            cellConditionsPanel.add(birthList);
-            cellConditionsPanel.add(done);
-            cellConditionsFrame.add(cellConditionsPanel);
-            cellConditionsFrame.setSize(400,200);
-            cellConditionsFrame.setVisible(true);
-
 
          }
         if (e.getSource() == mainView.getButtonPanel().getSimulate()) {
@@ -217,6 +177,12 @@ public class GameController implements ActionListener, MouseMotionListener, Mous
 
     public void mouseMoved(MouseEvent e) {
     }
+
+
+
+
+
+
 
     private void centerNewPane(JFrame frame) {
         frame.setLocation((Toolkit.getDefaultToolkit().getScreenSize().width - frame.getWidth())/2,
