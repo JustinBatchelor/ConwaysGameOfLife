@@ -21,17 +21,22 @@ public class GameModel implements Runnable{
     private int y;
 
     private BoardView boardView;
+    private ArrayList<Integer> cellLivesConditions;
+    private ArrayList<Integer> cellIsBornConditions;
+    private Integer delayBetweenUpdates;
 
 
     public GameModel(BoardView view) {
         boardView = view;
+        // default 1 second or 1000 milliseconds
+        delayBetweenUpdates = 50;
 
     }
 
     public void randomlyFillBoard() {
         for (x=0; x< boardView.getGameBoardDimensions().width; x++) {
             for (y=0; y< boardView.getGameBoardDimensions().height; y++) {
-                if (Math.random()*100 < .2) {
+                if (Math.random() < .3) {
                     addPoint(x,y);
                 }
             }
@@ -67,6 +72,14 @@ public class GameModel implements Runnable{
 
     public void resetBoard() {
         boardView.resetBoard();
+    }
+
+    public Integer getDelayBetweenUpdates() {
+        return delayBetweenUpdates;
+    }
+
+    public void setDelayBetweenUpdates(Integer passedSecondsFromController) {
+        delayBetweenUpdates = passedSecondsFromController;
     }
 
     public void advanceOneStep() {
@@ -133,11 +146,12 @@ public class GameModel implements Runnable{
         boardView.updateBoard(survivingCells);
         try {
             // I think this value is the value that should be settable for jedi
-            Thread.sleep(300);
+            Thread.sleep(delayBetweenUpdates);
             run();
         } catch (InterruptedException ex) {
         }
     }
+
 
 
 

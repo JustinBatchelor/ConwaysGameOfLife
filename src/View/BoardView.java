@@ -28,17 +28,14 @@ public class BoardView extends JPanel {
 
     private int x;
     private int y;
-    private static final Dimension MaximumWindowDimensions = new Dimension(5000,5000);
-    private static final Dimension minimumWindowDimensions = new Dimension(100,100);
     private static final int cellSize = 10;
 
-    private static Dimension gameBoardDimensions = new Dimension(200, 200);
+    private static Dimension gameBoardDimensions;
     private ArrayList<Point> cells;
 
     public BoardView(){
+        gameBoardDimensions = null;
         cells = new ArrayList<>();
-        this.setMinimumSize(minimumWindowDimensions);
-        this.setMaximumSize(MaximumWindowDimensions);
     }
 
     public Dimension getGameBoardDimensions() {
