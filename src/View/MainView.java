@@ -18,16 +18,11 @@ public class MainView extends JFrame {
         add(menuBarImpl, BorderLayout.NORTH);
     }
 
-    public void updateFameSize(int x, int y) {
-        this.setSize(x, y);
-    }
     public ButtonPanel getButtonPanel() {
         return buttonPanel;
     }
-
     public BoardView getBoardView() {
         return boardView;
     }
-
     public MenuBarImpl getMenuBarImpl() {return menuBarImpl;}
 }
