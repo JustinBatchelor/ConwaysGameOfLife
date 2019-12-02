@@ -16,7 +16,7 @@ public class ResizeView extends JFrame {
 
     public ResizeView() {
         setLayout(new GridLayout(3,1));
-        setSize(600,300);
+        setSize(600,200);
         JPanel dimensionsLayout = new JPanel();
         JPanel hintLayout = new JPanel();
         hintLayout.setLayout(new GridLayout(2,1));
@@ -28,7 +28,7 @@ public class ResizeView extends JFrame {
         widthTextField.setText("Enter Width");
         heightTextField.setText("Enter Height");
         resizeNote = new JLabel("(You may also resize the board by dragging any corner)");
-        dragLabel = new JLabel("(To highlight many cells you may hold the mouse click)");
+        dragLabel = new JLabel("(To highlight many cells you may click and drag)");
         enterButton = new JButton("Enter");
 
         dimensionsLayout.add(widthLabel);
@@ -40,8 +40,9 @@ public class ResizeView extends JFrame {
         hintLayout.add(dragLabel);
 
         add(dimensionsLayout);
-        add(enterButton);
         add(hintLayout);
+        add(enterButton);
+
 
     }
 
