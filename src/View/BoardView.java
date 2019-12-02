@@ -28,17 +28,21 @@ public class BoardView extends JPanel {
 
     private int x;
     private int y;
-    private static final Dimension MaximumWindowDimensions = new Dimension(5000,5000);
-    private static final Dimension minimumWindowDimensions = new Dimension(100,100);
     private static final int cellSize = 10;
 
-    private static Dimension gameBoardDimensions = new Dimension(200, 200);
+    private boolean torusMode;
+
+    private static Dimension gameBoardDimensions;
     private ArrayList<Point> cells;
 
     public BoardView(){
+        gameBoardDimensions = null;
         cells = new ArrayList<>();
-        this.setMinimumSize(minimumWindowDimensions);
-        this.setMaximumSize(MaximumWindowDimensions);
+        torusMode = false;
+    }
+
+    public void setTorusMode(boolean bool) {
+        torusMode = bool;
     }
 
     public Dimension getGameBoardDimensions() {
@@ -92,17 +96,23 @@ public class BoardView extends JPanel {
         super.paintComponent(g);
         try {
             for(Point p : cells) {
-                g.setColor(Color.GREEN);
-                g.fillRect(cellSize + (cellSize*p.x), cellSize + (cellSize*p.y), cellSize, cellSize);
+                if (torusMode) {
+                    g.setColor(Color.ORANGE);
+                    g.fillRect(cellSize + (cellSize * p.x), cellSize + (cellSize * p.y), cellSize, cellSize);
+                } else {
+                    g.setColor(Color.GREEN);
+                    g.fillRect(cellSize + (cellSize * p.x), cellSize + (cellSize * p.y), cellSize, cellSize);
+                }
             }
         } catch (ConcurrentModificationException e) {}
         g.setColor(Color.BLACK);
-        for (x=0; x<=gameBoardDimensions.getWidth(); x++) {
-            g.drawLine(((x*cellSize)+cellSize), cellSize, (x*cellSize)+cellSize, cellSize + (cellSize*gameBoardDimensions.height));
+        for (x = 0; x <= gameBoardDimensions.getWidth(); x++) {
+            g.drawLine(((x * cellSize) + cellSize), cellSize, (x * cellSize) + cellSize, cellSize + (cellSize * gameBoardDimensions.height));
         }
-        for(y=0; y<=gameBoardDimensions.getHeight(); y++) {
-            g.drawLine(cellSize, ((y*cellSize)+cellSize), cellSize*(gameBoardDimensions.width+1), ((y*cellSize)+cellSize));
+        for (y = 0; y <= gameBoardDimensions.getHeight(); y++) {
+            g.drawLine(cellSize, ((y * cellSize) + cellSize), cellSize * (gameBoardDimensions.width + 1), ((y * cellSize) + cellSize));
         }
+
 
     }
 
