@@ -8,14 +8,6 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-/*
- *                                          We are going to need
- *
- * A list of points that are survivor cells to pass to the view
- * The current window size (Dimensions of the board) to make sure the model and view inline (Remember the board is resizable)
- * The initial conditions set by the user
- *
- */
 public class GameModel implements Runnable{
 
     private int x;
@@ -116,7 +108,12 @@ public class GameModel implements Runnable{
     }
 
     public void setDelayBetweenUpdates(Integer passedSecondsFromController) {
-        delayBetweenUpdates = passedSecondsFromController;
+        if (passedSecondsFromController > 1000) {
+            delayBetweenUpdates = 1000;
+        }
+        if (passedSecondsFromController < 10) {
+            delayBetweenUpdates = 10;
+        } else { delayBetweenUpdates = passedSecondsFromController; }
     }
 
     public void advanceOneStep() {
@@ -395,32 +392,6 @@ public class GameModel implements Runnable{
             Thread.sleep(delayBetweenUpdates);
             run();
         } catch (InterruptedException ex) { }
-    }
-
-    private void checkTorusModeTopLeftCorner() {
-
-    }
-    private void checkTorusModeTopRightCorner() {
-
-    }
-    private void checkTorusModeBottomLeftCorner() {
-
-    }
-    private void checkTorusModeBottomRightCorner() {
-
-    }
-    private void checkTorusModeTopRow() {
-
-    }
-    private void checkTorusModeLeftColumn() {
-
-    }
-
-    private void checkTorusModeRightColumn() {
-
-    }
-    private void checkTorusModeBottomRow() {
-
     }
 
 }
