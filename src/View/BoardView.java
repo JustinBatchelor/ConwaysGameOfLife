@@ -110,7 +110,7 @@ public class BoardView extends JPanel {
             g.drawLine(((x * cellSize) + cellSize), cellSize, (x * cellSize) + cellSize, cellSize + (cellSize * gameBoardDimensions.height));
         }
         for (y = 0; y <= gameBoardDimensions.getHeight(); y++) {
-            g.drawLine(cellSize, ((y * cellSize) + cellSize), cellSize * (gameBoardDimensions.width + 1), ((y * cellSize) + cellSize));
+            g.drawLine(cellSize, ((y * cellSize) + cellSize), cellSize * (gameBoardDimensions.width), ((y * cellSize) + cellSize));
         }
 
 

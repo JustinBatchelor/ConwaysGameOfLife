@@ -20,7 +20,7 @@ public class MVCGameOfLife {
         mainView.setLocation((Toolkit.getDefaultToolkit().getScreenSize().width - mainView.getWidth())/2,
                 (Toolkit.getDefaultToolkit().getScreenSize().height - mainView.getHeight())/2);
         readME.setLocation((Toolkit.getDefaultToolkit().getScreenSize().width - readME.getWidth())/2,
-                (Toolkit.getDefaultToolkit().getScreenSize().height));
+                (Toolkit.getDefaultToolkit().getScreenSize().height/2));
         mainView.setMinimumSize(new Dimension(370,450));
         mainView.setMaximumSize(new Dimension(5000,5000));
         mainView.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
