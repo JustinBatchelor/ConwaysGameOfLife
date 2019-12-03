@@ -154,138 +154,138 @@ public class GameModel implements Runnable{
     public void advanceOnStepTorus() {
         boolean[][] gameBoard = new boolean[boardView.getGameBoardDimensions().width + 2][boardView.getGameBoardDimensions().height + 2];
         for (Point p : boardView.getCells()) {
-            gameBoard[p.x + 1][p.y + 1] = true;
+            gameBoard[p.x][p.y] = true;
         }
         ArrayList<Point> survivingCells = new ArrayList<>();
-        for (int x = 1; x < gameBoard.length - 1; x++) {
-            for (int y = 1; y < gameBoard[0].length - 1; y++) {
+        for (x = 0; x < gameBoard.length - 2; x++) {
+            for (y = 0; y < gameBoard[0].length - 2; y++) {
                 int neighbor = 0;
                 // Top Left Corner
-                if (x == 1 && y == 1) {
+                if (x == 0 && y == 0) {
                     // need to check diagonal corner
                     if (gameBoard[x+1][y+1]) { neighbor++; }
                     if (gameBoard[x][y+1]) { neighbor++; }
                     if (gameBoard[x+1][y]) { neighbor++; }
-                    if (gameBoard[x][gameBoard[0].length-2]) {neighbor++;}
-                    if (gameBoard[x+1][gameBoard[0].length-2]) {neighbor++;}
-                    if (gameBoard[gameBoard.length-2][y]) {neighbor++;}
-                    if (gameBoard[gameBoard.length-2][y+1]) {neighbor++;}
-                    if (gameBoard[gameBoard.length-2][gameBoard[0].length-2]) {neighbor++;}
+                    if (gameBoard[x][gameBoard[0].length-3]) {neighbor++;}
+                    if (gameBoard[x+1][gameBoard[0].length-3]) {neighbor++;}
+                    if (gameBoard[gameBoard.length-3][y]) {neighbor++;}
+                    if (gameBoard[gameBoard.length-3][y+1]) {neighbor++;}
+                    if (gameBoard[gameBoard.length-3][gameBoard[0].length-3]) {neighbor++;}
                     if (gameBoard[x][y]) {
                         for (Integer i : cellLivesConditions) {
                             if (neighbor == i) {
-                                survivingCells.add(new Point(x-1,y-1));
+                                survivingCells.add(new Point(x,y));
                             }
                         }
                     } else {
                         for (Integer i : cellIsBornConditions) {
                             if (neighbor == i) {
-                                survivingCells.add(new Point(x-1,y-1));
+                                survivingCells.add(new Point(x,y));
                             }
                         }
                     }
                 }
                 // BottomLeft corner
-                if (x == 1 && y == gameBoard[0].length - 2) {
+                else if (x == 0 && y == gameBoard[0].length - 3) {
                     if (gameBoard[x+1][y-1]) { neighbor++; }
                     if (gameBoard[x][y-1]) { neighbor++; }
                     if (gameBoard[x+1][y]) { neighbor++; }
-                    if (gameBoard[x+1][1]) {neighbor++;}
-                    if (gameBoard[1][1]) {neighbor++;}
-                    if (gameBoard[gameBoard.length-2][1]) {neighbor++;}
-                    if (gameBoard[gameBoard.length-2][y-1]) {neighbor++;}
-                    if (gameBoard[gameBoard.length-2][gameBoard[0].length-2]) {neighbor++;}
+                    if (gameBoard[x+1][0]) {neighbor++;}
+                    if (gameBoard[0][0]) {neighbor++;}
+                    if (gameBoard[gameBoard.length-3][0]) {neighbor++;}
+                    if (gameBoard[gameBoard.length-3][y-1]) {neighbor++;}
+                    if (gameBoard[gameBoard.length-3][gameBoard[0].length-3]) {neighbor++;}
                     if (gameBoard[x][y]) {
                         for (Integer i : cellLivesConditions) {
                             if (neighbor == i) {
-                                survivingCells.add(new Point(x-1,y-1));
+                                survivingCells.add(new Point(x,y));
                             }
                         }
                     } else {
                         for (Integer i : cellIsBornConditions) {
                             if (neighbor == i) {
-                                survivingCells.add(new Point(x-1,y-1));
+                                survivingCells.add(new Point(x,y));
                             }
                         }
                     }
                 }
                 // Top Right corner
-                if (x == gameBoard.length - 2 && y == 1) {
-                    if (gameBoard[1][1]) { neighbor++; }
-                    if (gameBoard[1][2]) { neighbor++; }
-                    if (gameBoard[1][gameBoard[0].length-2]) { neighbor++; }
-                    if (gameBoard[gameBoard.length-2][gameBoard[0].length-2]) {neighbor++;}
-                    if (gameBoard[gameBoard.length-3][gameBoard[0].length-2]) {neighbor++;}
-                    if (gameBoard[x-1][1]) {neighbor++;}
+                else if (x == gameBoard.length - 3 && y == 0) {
+                    if (gameBoard[0][0]) { neighbor++; }
+                    if (gameBoard[0][1]) { neighbor++; }
+                    if (gameBoard[0][gameBoard[0].length-3]) { neighbor++; }
+                    if (gameBoard[gameBoard.length-3][gameBoard[0].length-3]) {neighbor++;}
+                    if (gameBoard[gameBoard.length-4][gameBoard[0].length-3]) {neighbor++;}
+                    if (gameBoard[x-1][0]) {neighbor++;}
                     if (gameBoard[x-1][y+1]) {neighbor++;}
-                    if (gameBoard[gameBoard.length-2][2]) {neighbor++;}
+                    if (gameBoard[gameBoard.length-3][1]) {neighbor++;}
                     if (gameBoard[x][y]) {
                         for (Integer i : cellLivesConditions) {
                             if (neighbor == i) {
-                                survivingCells.add(new Point(x-1,y-1));
+                                survivingCells.add(new Point(x,y));
                             }
                         }
                     } else {
                         for (Integer i : cellIsBornConditions) {
                             if (neighbor == i) {
-                                survivingCells.add(new Point(x-1,y-1));
+                                survivingCells.add(new Point(x,y));
                             }
                         }
                     }
                 }
                 // Bot Right corner
-                if (x==gameBoard.length - 2 && y == gameBoard[0].length - 2) {
+                else if (x==gameBoard.length - 3 && y == gameBoard[0].length - 3) {
                     if (gameBoard[x-1][y-1]) { neighbor++; }
                     if (gameBoard[x-1][y]) { neighbor++; }
                     if (gameBoard[x][y-1]) { neighbor++; }
-                    if (gameBoard[1][1]) {neighbor++;}
-                    if (gameBoard[1][gameBoard[0].length-2]) {neighbor++;}
-                    if (gameBoard[1][gameBoard[0].length-3]) {neighbor++;}
-                    if (gameBoard[gameBoard.length-2][1]) {neighbor++;}
-                    if (gameBoard[gameBoard.length-3][1]) {neighbor++;}
+                    if (gameBoard[0][0]) {neighbor++;}
+                    if (gameBoard[0][gameBoard[0].length-3]) {neighbor++;}
+                    if (gameBoard[0][gameBoard[0].length-4]) {neighbor++;}
+                    if (gameBoard[gameBoard.length-3][0]) {neighbor++;}
+                    if (gameBoard[gameBoard.length-4][0]) {neighbor++;}
                     if (gameBoard[x][y]) {
                         for (Integer i : cellLivesConditions) {
                             if (neighbor == i) {
-                                survivingCells.add(new Point(x-1,y-1));
+                                survivingCells.add(new Point(x,y));
                             }
                         }
                     } else {
                         for (Integer i : cellIsBornConditions) {
                             if (neighbor == i) {
-                                survivingCells.add(new Point(x-1,y-1));
+                                survivingCells.add(new Point(x,y));
                             }
                         }
                     }
                 }
                 // Left Column
-                if (x==1) {
-                    if (gameBoard[gameBoard.length-2][y-1]) { neighbor++; }
+                else if (x==0) {
+                    if (gameBoard[gameBoard.length-3][y-1]) { neighbor++; }
                     if (gameBoard[x][y-1]) { neighbor++; }
                     if (gameBoard[x+1][y-1]) { neighbor++; }
                     if (gameBoard[x+1][y]) { neighbor++; }
                     if (gameBoard[x+1][y+1]) { neighbor++; }
                     if (gameBoard[x][y+1]) { neighbor++; }
-                    if (gameBoard[gameBoard.length-2][y+1]) { neighbor++; }
-                    if (gameBoard[gameBoard.length-2][y]) { neighbor++; }
+                    if (gameBoard[gameBoard.length-3][y+1]) { neighbor++; }
+                    if (gameBoard[gameBoard.length-3][y]) { neighbor++; }
                     if (gameBoard[x][y]) {
                         for (Integer i : cellLivesConditions) {
                             if (neighbor == i) {
-                                survivingCells.add(new Point(x-1,y-1));
+                                survivingCells.add(new Point(x,y));
                             }
                         }
                     } else {
                         for (Integer i : cellIsBornConditions) {
                             if (neighbor == i) {
-                                survivingCells.add(new Point(x-1,y-1));
+                                survivingCells.add(new Point(x,y));
                             }
                         }
                     }
                 }
                 // Top Row
-                if (y==1) {
-                    if (gameBoard[x-1][gameBoard[0].length-2]) { neighbor++; }
-                    if (gameBoard[x][gameBoard[0].length-2]) { neighbor++; }
-                    if (gameBoard[x+1][gameBoard[0].length-2]) { neighbor++; }
+                else if (y==0) {
+                    if (gameBoard[x-1][gameBoard[0].length-3]) { neighbor++; }
+                    if (gameBoard[x][gameBoard[0].length-3]) { neighbor++; }
+                    if (gameBoard[x+1][gameBoard[0].length-3]) { neighbor++; }
                     if (gameBoard[x+1][y]) { neighbor++; }
                     if (gameBoard[x+1][y+1]) { neighbor++; }
                     if (gameBoard[x][y+1]) { neighbor++; }
@@ -294,67 +294,67 @@ public class GameModel implements Runnable{
                     if (gameBoard[x][y]) {
                         for (Integer i : cellLivesConditions) {
                             if (neighbor == i) {
-                                survivingCells.add(new Point(x-1,y-1));
+                                survivingCells.add(new Point(x,y));
                             }
                         }
                     } else {
                         for (Integer i : cellIsBornConditions) {
                             if (neighbor == i) {
-                                survivingCells.add(new Point(x-1,y-1));
+                                survivingCells.add(new Point(x,y));
                             }
                         }
                     }
 
                 }
                 // Bottom row
-                if (y == gameBoard[0].length-2) {
+                else if (y == gameBoard[0].length-3) {
                     if (gameBoard[x-1][y-1]) { neighbor++; }
                     if (gameBoard[x][y-1]) { neighbor++; }
                     if (gameBoard[x+1][y-1]) { neighbor++; }
                     if (gameBoard[x+1][y]) { neighbor++; }
-                    if (gameBoard[x+1][1]) { neighbor++; }
-                    if (gameBoard[x][1]) { neighbor++; }
-                    if (gameBoard[x-1][1]) { neighbor++; }
+                    if (gameBoard[x+1][0]) { neighbor++; }
+                    if (gameBoard[x][0]) { neighbor++; }
+                    if (gameBoard[x-1][0]) { neighbor++; }
                     if (gameBoard[x-1][y]) { neighbor++; }
                     if (gameBoard[x][y]) {
                         for (Integer i : cellLivesConditions) {
                             if (neighbor == i) {
-                                survivingCells.add(new Point(x-1,y-1));
+                                survivingCells.add(new Point(x,y));
                             }
                         }
                     } else {
                         for (Integer i : cellIsBornConditions) {
                             if (neighbor == i) {
-                                survivingCells.add(new Point(x-1,y-1));
+                                survivingCells.add(new Point(x,y));
                             }
                         }
                     }
 
                 }
                 // Right Column
-                if (x == gameBoard.length-2) {
+                else if (x == gameBoard.length-3) {
                     if (gameBoard[x-1][y-1]) { neighbor++; }
                     if (gameBoard[x][y-1]) { neighbor++; }
-                    if (gameBoard[1][y-1]) { neighbor++; }
-                    if (gameBoard[1][y]) { neighbor++; }
-                    if (gameBoard[1][y+1]) { neighbor++; }
+                    if (gameBoard[0][y-1]) { neighbor++; }
+                    if (gameBoard[0][y]) { neighbor++; }
+                    if (gameBoard[0][y+1]) { neighbor++; }
                     if (gameBoard[x][y+1]) { neighbor++; }
                     if (gameBoard[x-1][y+1]) { neighbor++; }
                     if (gameBoard[x-1][y]) { neighbor++; }
                     if (gameBoard[x][y]) {
                         for (Integer i : cellLivesConditions) {
                             if (neighbor == i) {
-                                survivingCells.add(new Point(x-1,y-1));
+                                survivingCells.add(new Point(x,y));
                             }
                         }
                     } else {
                         for (Integer i : cellIsBornConditions) {
                             if (neighbor == i) {
-                                survivingCells.add(new Point(x-1,y-1));
+                                survivingCells.add(new Point(x,y));
                             }
                         }
                     }
-                } else {
+                } else if (x > 0 && x<gameBoard.length-2 && y > 0 && y<gameBoard[0].length-2) {
                     if (gameBoard[x-1][y-1]) { neighbor++; }
                     if (gameBoard[x][y-1]) { neighbor++; }
                     if (gameBoard[x+1][y-1]) { neighbor++; }
@@ -366,13 +366,13 @@ public class GameModel implements Runnable{
                     if (gameBoard[x][y]) {
                         for (Integer i : cellLivesConditions) {
                             if (neighbor == i) {
-                                survivingCells.add(new Point(x-1,y-1));
+                                survivingCells.add(new Point(x,y));
                             }
                         }
                     } else {
                         for (Integer i : cellIsBornConditions) {
                             if (neighbor == i) {
-                                survivingCells.add(new Point(x-1, y-1));
+                                survivingCells.add(new Point(x,y));
                             }
                         }
                     }

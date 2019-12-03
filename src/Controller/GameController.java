@@ -101,7 +101,7 @@ public class GameController implements ActionListener, MouseMotionListener, Mous
     }
 
     public void componentResized(ComponentEvent e) {
-        int width = (mainView.getWidth()) / mainView.getBoardView().getCellSize()-2;
+        int width = (mainView.getWidth()) / mainView.getBoardView().getCellSize()-4;
         int height = (mainView.getHeight()) / mainView.getBoardView().getCellSize()-12;
         Dimension dimension = new Dimension(width, height);
         mainView.getBoardView().setDimensions(dimension);
